@@ -33,7 +33,7 @@ const App = () => {
   const getData = async (videoId) => {
     const data = await axios.post(`${API}/getTranscript`, { videoId });
     setTranscript(data.data.transcript);
-    console.log(data.data.transcript);
+    // console.log(data.data.transcript);
   };
   const handleDownloadTranscript = () => {
     setShowPdf(true);
@@ -126,6 +126,8 @@ const App = () => {
     const data = await axios.post(`${API}/getSummary`, { transcript });
     if (data) {
       setSummary(data.data.summary);
+      console.log("Summary for PDF:", summary);
+
       setShowPdfSummary(true);
     }
   };

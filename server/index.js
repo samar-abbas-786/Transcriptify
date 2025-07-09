@@ -1,12 +1,14 @@
 import express from "express";
 import cors from "cors";
 import Transcript from "youtube-transcript-api";
-import { configDotenv } from "dotenv";
+import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
+dotenv.config();
+
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
-configDotenv();
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -72,12 +74,17 @@ ${transcript}
 `,
     });
 
-    const response = await result.response;
-    const text = await response.text();
+    // const response = await result.response;
+    let text = result.text;
+    text = text
+      .trim()
+      .replace(/^```json\n?/, "")
+      .replace(/```$/, "");
 
-    const summary = JSON.parse(text); 
+    const summary = JSON.parse(text);
+    // console.log("result", summary);
 
-    return res.status(200).json({ summary }); 
+    return res.status(200).json({ summary });
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({ message: "Error in getting summary", error });
