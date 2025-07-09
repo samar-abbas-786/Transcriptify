@@ -21,7 +21,7 @@ import ShowTranscript from "./components/showTranscript";
 
 const App = () => {
   const API = "http://localhost:5000";
-  const darkMode = false;
+  const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
   const [videoId, setVideoId] = useState("");
   const [transcript, setTranscript] = useState("");
@@ -54,22 +54,22 @@ const App = () => {
     {
       icon: <Youtube className="w-6 h-6" />,
       title: "YouTube Integration",
-      desc: "Direct video processing",
+      desc: "Seamlessly process any YouTube video",
     },
     {
       icon: <Clock className="w-6 h-6" />,
-      title: "Instant Results",
-      desc: "Get transcripts in seconds",
+      title: "Instant Processing",
+      desc: "Get transcripts & summaries in seconds",
     },
     {
       icon: <FileText className="w-6 h-6" />,
-      title: "Multiple Formats",
-      desc: "Export as text, SRT, or JSON",
+      title: "Dual Output",
+      desc: "Full transcripts plus AI summaries",
     },
     {
       icon: <Zap className="w-6 h-6" />,
-      title: "AI Enhanced",
-      desc: "Smart formatting & timestamps",
+      title: "AI-Powered",
+      desc: "Smart summarization with key insights",
     },
   ];
   const handleSubmit = async () => {
@@ -196,7 +196,7 @@ const App = () => {
                 <Sparkles className="w-6 h-6" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Transcriptify
+                TubeBrief
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
@@ -227,6 +227,7 @@ const App = () => {
             </div>
             <div className="flex items-center space-x-4">
               <button
+                onClick={() => setDarkMode(!darkMode)}
                 className={`p-2 rounded-xl transition-all duration-300 hover:scale-110 ${theme.buttonSecondary}`}
               >
                 {darkMode ? (
@@ -250,11 +251,11 @@ const App = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Transform YouTube Videos
+              Turn YouTube Videos Into
             </span>
             <br />
             <span className={darkMode ? "text-white" : "text-gray-800"}>
-              Into Perfect Transcripts
+              Transcripts & Summaries
             </span>
           </h1>
           <p
@@ -262,8 +263,7 @@ const App = () => {
               darkMode ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Harness the power of AI to instantly convert any YouTube video into
-            accurate, timestamped transcripts
+            Extract complete transcripts and generate AI-powered summaries from any YouTube video in seconds
           </p>
         </div>
 
@@ -278,14 +278,14 @@ const App = () => {
               >
                 <Play className="w-4 h-4" />
                 <span className="text-sm font-medium">
-                  AI-Powered Transcription
+                  AI-Powered Video Processing
                 </span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                Get Your Transcript
+                Get Started Now
               </h2>
               <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                Paste any YouTube URL below
+                Paste any YouTube URL to extract transcripts and generate summaries
               </p>
             </div>
 
@@ -315,7 +315,7 @@ const App = () => {
               >
                 <div className="flex items-center justify-center space-x-2">
                   <span>
-                    {isLoading ? "Loading..." : "Generate Transcript"}
+                    {isLoading ? "Processing Video..." : "Extract Transcript"}
                   </span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -333,7 +333,7 @@ const App = () => {
                 }`}
               >
                 <Download className="w-4 h-4 inline mr-2" />
-                {isLoading2 ? "Loading..." : "Download Transcript"}
+                {isLoading2 ? "Preparing..." : "Download Transcript"}
               </button>
               <button
                 onClick={() => {
@@ -346,10 +346,8 @@ const App = () => {
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
               >
-                {/* <Play className="w-4 h-4 inline mr-2" /> */}
                 <Download className="w-4 h-4 inline mr-2" />
-
-                {isLoading3 ? "Loading..." : "  Download Summary"}
+                {isLoading3 ? "Generating..." : "Download Summary"}
               </button>
             </div>
           </div>
@@ -362,7 +360,7 @@ const App = () => {
               darkMode ? "text-white" : "text-gray-800"
             }`}
           >
-            Why Choose Transcriptify?
+            Why Choose TubeBrief?
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
