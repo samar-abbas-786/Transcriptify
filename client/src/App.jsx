@@ -406,7 +406,6 @@ const App = () => {
               </div>
             </div>
           ))}
-          {/* {transcript && <>{transcript}</>} */}
         </div>
       </div>
     </div>
