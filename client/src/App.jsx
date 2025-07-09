@@ -260,7 +260,7 @@ const App = () => {
                 className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all ${theme.buttonSecondary} group`}
               >
                 <Download className="w-4 h-4 inline mr-2" />
-                Download Sample
+                Download Transcript
               </button>
               <button
                 className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all ${theme.buttonSecondary} group`}
