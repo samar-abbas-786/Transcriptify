@@ -196,7 +196,7 @@ const App = () => {
                 <Sparkles className="w-6 h-6" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                TubeBrief
+                Transcriptify
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
@@ -263,7 +263,8 @@ const App = () => {
               darkMode ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            Extract complete transcripts and generate AI-powered summaries from any YouTube video in seconds
+            Extract complete transcripts and generate AI-powered summaries from
+            any YouTube video in seconds
           </p>
         </div>
 
@@ -285,7 +286,8 @@ const App = () => {
                 Get Started Now
               </h2>
               <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                Paste any YouTube URL to extract transcripts and generate summaries
+                Paste any YouTube URL to extract transcripts and generate
+                summaries
               </p>
             </div>
 
@@ -360,7 +362,7 @@ const App = () => {
               darkMode ? "text-white" : "text-gray-800"
             }`}
           >
-            Why Choose TubeBrief?
+            Why Choose Transcriptify?
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
