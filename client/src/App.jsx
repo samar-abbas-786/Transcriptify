@@ -268,7 +268,6 @@ const App = () => {
             any YouTube video in seconds
           </p>
         </div>
-
         {/* Main Card */}
         <div className="flex justify-center">
           <div
@@ -355,7 +354,6 @@ const App = () => {
             </div>
           </div>
         </div>
-
         {/* Features */}
         <div id="why" className="mt-20">
           <h3
@@ -386,7 +384,6 @@ const App = () => {
             ))}
           </div>
         </div>
-
         {/* Stats */}
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8">
           {[
@@ -407,6 +404,86 @@ const App = () => {
               </div>
             </div>
           ))}
+        </div>
+        <div className="mt-24" id="pricing">
+          <h3
+            className={`text-2xl sm:text-3xl font-bold text-center mb-12 ${
+              darkMode ? "text-white" : "text-gray-800"
+            }`}
+          >
+            Transparent Pricing for Every Need
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {[
+              {
+                name: "Free",
+                price: "$0",
+                features: [
+                  "Basic Transcript Extraction",
+                  "Limited Summary Length",
+                  "Up to 5 videos/day",
+                ],
+                highlighted: false,
+              },
+              {
+                name: "Pro",
+                price: "$9.99/mo",
+                features: [
+                  "Unlimited Transcript Downloads",
+                  "Full-Length AI Summaries",
+                  "Priority Queue Processing",
+                  "Downloadable PDFs",
+                ],
+                highlighted: true,
+              },
+              {
+                name: "Enterprise",
+                price: "Custom",
+                features: [
+                  "Team Access",
+                  "Dedicated Support",
+                  "API Integration",
+                  "Custom Limits",
+                ],
+                highlighted: false,
+              },
+            ].map((plan, index) => (
+              <div
+                key={index}
+                className={`p-6 rounded-3xl hover:rotate-z-1 border-1 transition-all duration-300 hover:scale-105 text-center space-y-6 ${
+                  plan.highlighted
+                    ? darkMode
+                      ? "border-purple-500 bg-black/30"
+                      : "border-indigo-500 bg-white/70"
+                    : theme.featureCard
+                }`}
+              >
+                <h4 className="text-2xl font-bold">{plan.name}</h4>
+                <div
+                  className={`text-4xl font-bold ${
+                    darkMode ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  {plan.price}
+                </div>
+                <ul
+                  className={`text-sm space-y-2 ${
+                    darkMode ? "text-gray-300" : "text-gray-600"
+                  }`}
+                >
+                  {plan.features.map((feature, i) => (
+                    <li key={i}>✓ {feature}</li>
+                  ))}
+                </ul>
+                <button
+                  className={`mt-4 px-5 py-2 rounded-xl font-medium transition-all ${theme.button}`}
+                >
+                  {plan.name === "Free" ? "Get Started" : "Choose Plan"}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
