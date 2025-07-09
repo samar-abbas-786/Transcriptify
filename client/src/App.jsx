@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import Pdf from "./components/pdf";
 
 import axios from "axios";
+import SummaryPdf from "./components/summaryPdf";
 
 const App = () => {
   const API = "http://localhost:5000";
@@ -26,6 +27,8 @@ const App = () => {
   const [b1, setb1] = useState(false);
   const [showPdf, setShowPdf] = useState(false);
   const [click, setClick] = useState(false);
+  const [showPdfSummary, setShowPdfSummary] = useState(false);
+  const [summary, setSummary] = useState([]);
 
   const getData = async (videoId) => {
     const data = await axios.post(`${API}/getTranscript`, { videoId });
@@ -116,6 +119,20 @@ const App = () => {
     return (
       <div className="w-full h-screen border">
         <Pdf transcript={transcript} />
+      </div>
+    );
+  }
+  const handleDownLoadSummary = async () => {
+    const data = await axios.post(`${API}/getSummary`, { transcript });
+    if (data) {
+      setSummary(data.data.summary);
+      setShowPdfSummary(true);
+    }
+  };
+  if (showPdfSummary) {
+    return (
+      <div className="w-full h-screen border">
+        <SummaryPdf summary={summary} />
       </div>
     );
   }
@@ -260,15 +277,15 @@ const App = () => {
 
               <button
                 onClick={handleSubmit}
-                disabled={click}
-                className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 transform  ${
-                  !click
+                disabled={!url}
+                className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 transform group ${
+                  url
                     ? `${theme.button} hover:scale-105`
                     : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                } group`}
+                }`}
               >
                 <div className="flex items-center justify-center space-x-2">
-                  <span disabled={!click}>Generate Transcript</span>
+                  <span>Generate Transcript</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
@@ -288,6 +305,9 @@ const App = () => {
                 Download Transcript
               </button>
               <button
+                onClick={() => {
+                  handleDownLoadSummary();
+                }}
                 disabled={!click}
                 className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all group ${
                   click
