@@ -12,6 +12,7 @@ import {
   Zap,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import Pdf from "./components/pdf";
 
 import axios from "axios";
 
@@ -23,11 +24,13 @@ const App = () => {
   const [transcript, setTranscript] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [b1, setb1] = useState(false);
+  const [showPdf, setShowPdf] = useState(false);
 
   const getData = async (videoId) => {
     const data = await axios.post(`${API}/getTranscript`, { videoId });
     setTranscript(data.data.transcript);
     console.log(data.data.transcript);
+    setShowPdf(true);
   };
   useEffect(() => {
     localStorage.setItem("videoId", videoId);
@@ -105,6 +108,13 @@ const App = () => {
         accent: "text-indigo-600",
         glow: "shadow-2xl shadow-indigo-500/20",
       };
+  if (showPdf) {
+    return (
+      <div className="w-full h-screen border">
+        <Pdf transcript={transcript} />
+      </div>
+    );
+  }
 
   return (
     <div
