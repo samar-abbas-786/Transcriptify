@@ -16,6 +16,8 @@ import Pdf from "./components/pdf";
 
 import axios from "axios";
 import SummaryPdf from "./components/summaryPdf";
+import ShowSummary from "./components/showSummary";
+import ShowTranscript from "./components/showTranscript";
 
 const App = () => {
   const API = "http://localhost:5000";
@@ -31,9 +33,15 @@ const App = () => {
   const [summary, setSummary] = useState([]);
 
   const getData = async (videoId) => {
-    const data = await axios.post(`${API}/getTranscript`, { videoId });
-    setTranscript(data.data.transcript);
-    // console.log(data.data.transcript);
+    try {
+      setIsLoading(true);
+      const data = await axios.post(`${API}/getTranscript`, { videoId });
+      setTranscript(data.data.transcript);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("error on getData", error);
+      setIsLoading(false);
+    }
   };
   const handleDownloadTranscript = () => {
     setShowPdf(true);
@@ -41,9 +49,7 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("videoId", videoId);
   }, [videoId]);
-  useEffect(() => {
-    // console.log("transcript", transcript);
-  }, [transcript]);
+  useEffect(() => {}, [transcript]);
   const features = [
     {
       icon: <Youtube className="w-6 h-6" />,
@@ -67,20 +73,27 @@ const App = () => {
     },
   ];
   const handleSubmit = async () => {
-    const videoUri = new URL(url);
-    let Vid = videoUri.searchParams.get("v");
-    if (Vid != null || Vid != undefined) {
-      // console.log(Vid);
-      setVideoId(Vid);
-      setb1(!b1);
-    } else {
-      Vid = url.substring(17, 28);
-      // console.log(Vid);
-      setVideoId(url.substring(17, 28));
-      setb1(!b1);
+    try {
+      setIsLoading(true);
+      const videoUri = new URL(url);
+      let Vid = videoUri.searchParams.get("v");
+      if (Vid != null || Vid != undefined) {
+        // console.log(Vid);
+        setVideoId(Vid);
+        setb1(!b1);
+      } else {
+        Vid = url.substring(17, 28);
+        // console.log(Vid);
+        setVideoId(url.substring(17, 28));
+        setb1(!b1);
+      }
+      await getData(Vid);
+      setClick(!click);
+      setIsLoading(false);
+    } catch (error) {
+      console.log("error on handleSumbit", error);
+      setIsLoading(false);
     }
-    await getData(Vid);
-    setClick(!click);
   };
 
   const theme = darkMode
@@ -115,26 +128,40 @@ const App = () => {
         accent: "text-indigo-600",
         glow: "shadow-2xl shadow-indigo-500/20",
       };
+  // if (showPdf) {
+  //   return (
+  //     <div className="w-full h-screen border">
+  //       <Pdf transcript={transcript} />
+  //     </div>
+  //   );
+  // }
   if (showPdf) {
     return (
       <div className="w-full h-screen border">
-        <Pdf transcript={transcript} />
+        <ShowTranscript transcript={transcript} />
       </div>
     );
   }
   const handleDownLoadSummary = async () => {
-    const data = await axios.post(`${API}/getSummary`, { transcript });
-    if (data) {
-      setSummary(data.data.summary);
-      console.log("Summary for PDF:", summary);
+    try {
+      setIsLoading(true);
+      const data = await axios.post(`${API}/getSummary`, { transcript });
+      if (data) {
+        setSummary(data.data.summary);
+        console.log("Summary for PDF:", summary);
 
-      setShowPdfSummary(true);
+        setShowPdfSummary(true);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.log("error on handleDownLoadSummary", error);
+      setIsLoading(false);
     }
   };
   if (showPdfSummary) {
     return (
       <div className="w-full h-screen border">
-        <SummaryPdf summary={summary} />
+        <ShowSummary summary={summary} />
       </div>
     );
   }
@@ -287,7 +314,9 @@ const App = () => {
                 }`}
               >
                 <div className="flex items-center justify-center space-x-2">
-                  <span>Generate Transcript</span>
+                  <span>
+                    {isLoading ? "Loading..." : "Generate Transcript"}
+                  </span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
@@ -304,7 +333,7 @@ const App = () => {
                 }`}
               >
                 <Download className="w-4 h-4 inline mr-2" />
-                Download Transcript
+                {isLoading ? "Loading" : "Download Transcript"}
               </button>
               <button
                 onClick={() => {
@@ -319,7 +348,8 @@ const App = () => {
               >
                 {/* <Play className="w-4 h-4 inline mr-2" /> */}
                 <Download className="w-4 h-4 inline mr-2" />
-                Download Summary
+
+                {isLoading ? "Loading" : "  Download Summary"}
               </button>
             </div>
           </div>
