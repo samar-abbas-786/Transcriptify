@@ -14,6 +14,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.get("/", (req, res) => {
+  res.send("Hello World!!");
+});
+
 app.post("/getTranscript", async (req, res) => {
   const { videoId } = req.body;
   console.log("Extracted videoId:", videoId);
