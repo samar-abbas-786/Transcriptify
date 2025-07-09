@@ -488,121 +488,119 @@ const App = () => {
             ))}
           </div>
         </div>
-        <footer
-          className={`mt-32 border-t pt-12 ${
-            darkMode
-              ? "bg-black/30 border-white/10 text-white"
-              : "bg-white/50 border-white/30 text-gray-800"
-          }`}
-        >
-          <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
-              {/* Logo & Tagline */}
-              <div>
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className={`p-2 rounded-xl ${theme.button}`}>
-                    <AudioLines className="w-6 h-6" />
-                  </div>
-                  <span className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                    Transcriptify
-                  </span>
+      </div>
+      <footer
+        className={`mt-32 border-t pt-12 ${
+          darkMode
+            ? "bg-black/30 border-white/10 text-white"
+            : "bg-white/50 border-white/30 text-gray-800"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            {/* Logo & Tagline */}
+            <div>
+              <div className="flex items-center space-x-3 mb-4">
+                <div className={`p-2 rounded-xl ${theme.button}`}>
+                  <AudioLines className="w-6 h-6" />
                 </div>
-                <p className="text-sm leading-relaxed">
-                  AI-powered tool to extract transcripts and generate smart
-                  summaries from any YouTube video.
-                </p>
+                <span className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  Transcriptify
+                </span>
               </div>
-
-              {/* Navigation */}
-              <div>
-                <h4 className="text-lg font-semibold mb-3">Explore</h4>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <a href="#" className="hover:text-indigo-500 transition">
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#why" className="hover:text-indigo-500 transition">
-                      Features
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#pricing"
-                      className="hover:text-indigo-500 transition"
-                    >
-                      Pricing
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-indigo-500 transition">
-                      Contact
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Resources */}
-              <div>
-                <h4 className="text-lg font-semibold mb-3">Resources</h4>
-                <ul className="space-y-2 text-sm">
-                  <li>
-                    <a href="#" className="hover:text-indigo-500 transition">
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-indigo-500 transition">
-                      Terms of Use
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-indigo-500 transition">
-                      Support
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-indigo-500 transition">
-                      API Access
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Newsletter / Social */}
-              <div>
-                <h4 className="text-lg font-semibold mb-3">Stay Updated</h4>
-                <p className="text-sm mb-4">
-                  Get tips, updates, and early access.
-                </p>
-                <form className="flex items-center space-x-2">
-                  <input
-                    type="email"
-                    placeholder="Your email"
-                    className={`w-full px-4 py-2 text-sm rounded-lg border outline-none ${theme.input}`}
-                  />
-                  <button
-                    type="submit"
-                    className={`px-4 py-2 rounded-lg text-sm font-semibold ${theme.button}`}
-                  >
-                    Join
-                  </button>
-                </form>
-              </div>
+              <p className="text-sm leading-relaxed">
+                AI-powered tool to extract transcripts and generate smart
+                summaries from any YouTube video.
+              </p>
             </div>
 
-            {/* Bottom Note */}
-            <div className="text-center text-xs pt-6 pb-10 border-t border-white/10">
-              &copy; {new Date().getFullYear()}{" "}
-              <span className="font-semibold text-purple-500">
-                Transcriptify
-              </span>
-              . Built with ❤ by Samar Abbas.
+            {/* Navigation */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3">Explore</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="hover:text-indigo-500 transition">
+                    Home
+                  </a>
+                </li>
+                <li>
+                  <a href="#why" className="hover:text-indigo-500 transition">
+                    Features
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#pricing"
+                    className="hover:text-indigo-500 transition"
+                  >
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-indigo-500 transition">
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3">Resources</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a href="#" className="hover:text-indigo-500 transition">
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-indigo-500 transition">
+                    Terms of Use
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-indigo-500 transition">
+                    Support
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-indigo-500 transition">
+                    API Access
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Newsletter / Social */}
+            <div>
+              <h4 className="text-lg font-semibold mb-3">Stay Updated</h4>
+              <p className="text-sm mb-4">
+                Get tips, updates, and early access.
+              </p>
+              <form className="flex items-center space-x-2">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  className={`w-full px-4 py-2 text-sm rounded-lg border outline-none ${theme.input}`}
+                />
+                <button
+                  type="submit"
+                  className={`px-4 py-2 rounded-lg text-sm font-semibold ${theme.button}`}
+                >
+                  Join
+                </button>
+              </form>
             </div>
           </div>
-        </footer>
-      </div>
+
+          {/* Bottom Note */}
+          <div className="text-center text-xs pt-6 pb-10 border-t border-white/10">
+            &copy; {new Date().getFullYear()}{" "}
+            <span className="font-semibold text-purple-500">Transcriptify</span>
+            . Built with ❤ by Samar Abbas.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
