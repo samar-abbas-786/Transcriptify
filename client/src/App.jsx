@@ -25,11 +25,14 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [b1, setb1] = useState(false);
   const [showPdf, setShowPdf] = useState(false);
+  const [click, setClick] = useState(false);
 
   const getData = async (videoId) => {
     const data = await axios.post(`${API}/getTranscript`, { videoId });
     setTranscript(data.data.transcript);
     console.log(data.data.transcript);
+  };
+  const handleDownloadTranscript = () => {
     setShowPdf(true);
   };
   useEffect(() => {
@@ -74,6 +77,7 @@ const App = () => {
       setb1(!b1);
     }
     await getData(Vid);
+    setClick(!click);
   };
 
   const theme = darkMode
@@ -256,10 +260,15 @@ const App = () => {
 
               <button
                 onClick={handleSubmit}
-                className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 ${theme.button} group`}
+                disabled={click}
+                className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 transform  ${
+                  !click
+                    ? `${theme.button} hover:scale-105`
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                } group`}
               >
                 <div className="flex items-center justify-center space-x-2">
-                  <span>Generate Transcript</span>
+                  <span disabled={!click}>Generate Transcript</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </button>
@@ -267,16 +276,28 @@ const App = () => {
 
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <button
-                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all ${theme.buttonSecondary} group`}
+                onClick={() => handleDownloadTranscript()}
+                disabled={!click}
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all group ${
+                  click
+                    ? theme.button
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
               >
                 <Download className="w-4 h-4 inline mr-2" />
                 Download Transcript
               </button>
               <button
-                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all ${theme.buttonSecondary} group`}
+                disabled={!click}
+                className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all group ${
+                  click
+                    ? theme.button
+                    : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
               >
-                <Play className="w-4 h-4 inline mr-2" />
-                Watch Demo
+                {/* <Play className="w-4 h-4 inline mr-2" /> */}
+                <Download className="w-4 h-4 inline mr-2" />
+                Download Summary
               </button>
             </div>
           </div>
