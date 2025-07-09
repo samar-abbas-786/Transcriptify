@@ -26,6 +26,9 @@ const App = () => {
   const [videoId, setVideoId] = useState("");
   const [transcript, setTranscript] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading3, setIsLoading3] = useState(false);
+
   const [b1, setb1] = useState(false);
   const [showPdf, setShowPdf] = useState(false);
   const [click, setClick] = useState(false);
@@ -34,13 +37,10 @@ const App = () => {
 
   const getData = async (videoId) => {
     try {
-      setIsLoading(true);
       const data = await axios.post(`${API}/getTranscript`, { videoId });
       setTranscript(data.data.transcript);
-      setIsLoading(false);
     } catch (error) {
       console.log("error on getData", error);
-      setIsLoading(false);
     }
   };
   const handleDownloadTranscript = () => {
@@ -144,18 +144,18 @@ const App = () => {
   }
   const handleDownLoadSummary = async () => {
     try {
-      setIsLoading(true);
+      setIsLoading3(true);
       const data = await axios.post(`${API}/getSummary`, { transcript });
       if (data) {
         setSummary(data.data.summary);
         console.log("Summary for PDF:", summary);
 
         setShowPdfSummary(true);
-        setIsLoading(false);
+        setIsLoading3(false);
       }
     } catch (error) {
       console.log("error on handleDownLoadSummary", error);
-      setIsLoading(false);
+      setIsLoading3(false);
     }
   };
   if (showPdfSummary) {
@@ -333,7 +333,7 @@ const App = () => {
                 }`}
               >
                 <Download className="w-4 h-4 inline mr-2" />
-                {isLoading ? "Loading" : "Download Transcript"}
+                {isLoading2 ? "Loading..." : "Download Transcript"}
               </button>
               <button
                 onClick={() => {
@@ -349,7 +349,7 @@ const App = () => {
                 {/* <Play className="w-4 h-4 inline mr-2" /> */}
                 <Download className="w-4 h-4 inline mr-2" />
 
-                {isLoading ? "Loading" : "  Download Summary"}
+                {isLoading3 ? "Loading..." : "  Download Summary"}
               </button>
             </div>
           </div>
