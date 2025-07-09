@@ -256,7 +256,7 @@ const App = () => {
                 Get Your Transcript
               </h2>
               <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-                Paste any YouTube URL or video ID below
+                Paste any YouTube URL below
               </p>
             </div>
 
@@ -270,7 +270,7 @@ const App = () => {
                 <input
                   type="text"
                   onChange={(e) => setUrl(e.target.value)}
-                  placeholder="https://youtube.com/watch?v=... or video ID"
+                  placeholder="https://youtube.com/watch?v=..."
                   className={`w-full pl-12 pr-4 py-4 text-lg rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${theme.input}`}
                 />
               </div>
