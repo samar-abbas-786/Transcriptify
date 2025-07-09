@@ -125,7 +125,7 @@ const App = () => {
   const handleDownLoadSummary = async () => {
     const data = await axios.post(`${API}/getSummary`, { transcript });
     if (data) {
-      setSummary(data.summary);
+      setSummary(data.data.summary);
       setShowPdfSummary(true);
     }
   };
