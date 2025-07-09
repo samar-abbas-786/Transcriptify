@@ -10,6 +10,7 @@ import {
   Clock,
   FileText,
   Zap,
+  AudioLines,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Pdf from "./components/pdf";
@@ -193,7 +194,7 @@ const App = () => {
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-2">
               <div className={`p-2 rounded-xl ${theme.button}`}>
-                <Sparkles className="w-6 h-6" />
+                <AudioLines className="w-6 h-6" />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 Transcriptify
