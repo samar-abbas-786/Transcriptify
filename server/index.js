@@ -37,8 +37,9 @@ app.post("/getTranscript", async (req, res) => {
 
 app.post("/getSummary", async (req, res) => {
   const { transcript } = req.body;
+
   try {
-    const data = await ai.models.generateContent({
+    const result = await ai.models.generateContent({
       model: "gemini-2.5-flash",
       contents: `You are a highly intelligent assistant. I will provide you with a raw transcript of a conversation, meeting, or video. 
 
@@ -70,10 +71,13 @@ Here is the transcript:
 ${transcript}
 `,
     });
-    if (data) {
-      return res.status(200).json({ message: "Got it", data });
-    }
-    return res.status(400).json({ message: "Summary not found" });
+
+    const response = await result.response;
+    const text = await response.text();
+
+    const summary = JSON.parse(text); 
+
+    return res.status(200).json({ summary }); 
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({ message: "Error in getting summary", error });
