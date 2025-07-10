@@ -22,6 +22,8 @@ import ShowTranscript from "./components/showTranscript";
 
 const App = () => {
   const API = "https://transcriptify-backend.onrender.com";
+  // const API = "http://localhost:5000";
+
   const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
   const [videoId, setVideoId] = useState("");
