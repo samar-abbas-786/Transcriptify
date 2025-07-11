@@ -13,16 +13,17 @@ import {
   AudioLines,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import Pdf from "./components/pdf";
+import { Analytics } from "@vercel/analytics/react";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import axios from "axios";
-import SummaryPdf from "./components/summaryPdf";
 import ShowSummary from "./components/showSummary";
 import ShowTranscript from "./components/showTranscript";
 
 const App = () => {
-  const API = "https://transcriptify-backend.onrender.com";
-  // const API = "http://localhost:5000";
+  // const API = "https://transcriptify-backend.onrender.com";
+  const API = "http://localhost:5000";
 
   const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
@@ -603,6 +604,7 @@ const App = () => {
           </div>
         </div>
       </footer>
+      <Analytics />
     </div>
   );
 };
