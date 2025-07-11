@@ -341,14 +341,18 @@ const Home = () => {
                     className={`w-full pl-12 pr-4 py-4 text-lg rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${theme.input}`}
                   />
                   {url && (
-                    <iframe
-                      className="w-full h-full"
-                      src={`https://www.youtube.com/embed/${videoId}`}
-                      title="YouTube video player"
-                      frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                    ></iframe>
+                    <div
+                      className={`p-5 mt-4 rounded-2xl border transition-all duration-500 ${theme.card} ${theme.glow}`}
+                    >
+                      <iframe
+                        className="w-full h-[40vh] rounded-lg"
+                        src={`https://www.youtube.com/embed/${videoId}`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                      ></iframe>
+                    </div>
                   )}
                 </div>
               </RevealScroll>
