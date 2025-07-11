@@ -11,6 +11,7 @@ import {
   FileText,
   Zap,
   AudioLines,
+  Video,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useInView } from "framer-motion";
@@ -22,8 +23,8 @@ import ShowSummary from "./components/showSummary";
 import ShowTranscript from "./components/showTranscript";
 import RevealScroll from "./components/reveal";
 const App = () => {
-  const API = "https://transcriptify-backend.onrender.com";
-  // const API = "http://localhost:5000";
+  // const API = "https://transcriptify-backend.onrender.com";
+  const API = "http://localhost:5000";
 
   const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
@@ -32,12 +33,15 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
   const [isLoading3, setIsLoading3] = useState(false);
-
   const [b1, setb1] = useState(false);
   const [showPdf, setShowPdf] = useState(false);
   const [click, setClick] = useState(false);
   const [showPdfSummary, setShowPdfSummary] = useState(false);
   const [summary, setSummary] = useState([]);
+  const [isExtractingTranscript, setIsExtractingTranscript] = useState(false);
+  const [isDownloadingTranscript, setIsDownloadingTranscript] = useState(false);
+  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+
   const ref = useRef(null);
   const isView = useInView(ref, { once: true });
 
@@ -50,11 +54,17 @@ const App = () => {
     }
   };
   const handleDownloadTranscript = () => {
-    setShowPdf(true);
+    setIsDownloadingTranscript(true);
+    setTimeout(() => {
+      setShowPdf(true);
+      setIsDownloadingTranscript(false);
+    }, 1000);
   };
+
   useEffect(() => {
     localStorage.setItem("videoId", videoId);
   }, [videoId]);
+
   useEffect(() => {}, [transcript]);
   const features = [
     {
@@ -78,27 +88,35 @@ const App = () => {
       desc: "Smart summarization with key insights",
     },
   ];
+  useEffect(() => {
+    if (!url) return;
+
+    try {
+      const videoUri = new URL(url);
+      const vidParam = videoUri.searchParams.get("v");
+
+      if (vidParam) {
+        setVideoId(vidParam);
+      } else {
+        const pathnameParts = videoUri.pathname.split("/");
+        const fallbackId = pathnameParts[pathnameParts.length - 1];
+        if (fallbackId) {
+          setVideoId(fallbackId);
+        }
+      }
+    } catch (err) {
+      console.error("Invalid URL passed:", url);
+    }
+  }, [url]);
+
   const handleSubmit = async () => {
     try {
-      setIsLoading(true);
-      const videoUri = new URL(url);
-      let Vid = videoUri.searchParams.get("v");
-      if (Vid != null || Vid != undefined) {
-        // console.log(Vid);
-        setVideoId(Vid);
-        setb1(!b1);
-      } else {
-        Vid = url.substring(17, 28);
-        // console.log(Vid);
-        setVideoId(url.substring(17, 28));
-        setb1(!b1);
-      }
-      await getData(Vid);
-      setClick(!click);
-      setIsLoading(false);
+      setIsExtractingTranscript(true);
+      await getData(videoId);
+      setIsExtractingTranscript(false);
     } catch (error) {
-      console.log("error on handleSumbit", error);
-      setIsLoading(false);
+      console.log("error on handleSubmit", error);
+      setIsExtractingTranscript(false);
     }
   };
 
@@ -150,20 +168,19 @@ const App = () => {
   }
   const handleDownLoadSummary = async () => {
     try {
-      setIsLoading3(true);
+      setIsGeneratingSummary(true);
       const data = await axios.post(`${API}/getSummary`, { transcript });
       if (data) {
         setSummary(data.data.summary);
-        console.log("Summary for PDF:", summary);
-
         setShowPdfSummary(true);
-        setIsLoading3(false);
       }
+      setIsGeneratingSummary(false);
     } catch (error) {
-      console.log("error on handleDownLoadSummary", error);
-      setIsLoading3(false);
+      console.log("error on handleDownloadSummary", error);
+      setIsGeneratingSummary(false);
     }
   };
+
   if (showPdfSummary) {
     return (
       <div className="w-full h-screen border">
@@ -323,21 +340,33 @@ const App = () => {
                     placeholder="https://youtube.com/watch?v=..."
                     className={`w-full pl-12 pr-4 py-4 text-lg rounded-2xl border transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-500/20 ${theme.input}`}
                   />
+                  {url && (
+                    <iframe
+                      className="w-full h-full"
+                      src={`https://www.youtube.com/embed/${videoId}`}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    ></iframe>
+                  )}
                 </div>
               </RevealScroll>
               <RevealScroll delay={0.35}>
                 <button
                   onClick={handleSubmit}
-                  disabled={!url}
+                  disabled={!url || isExtractingTranscript}
                   className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 transform group ${
-                    url
+                    url && !isExtractingTranscript
                       ? `${theme.button} hover:scale-105`
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}
                 >
                   <div className="flex items-center justify-center space-x-2">
                     <span>
-                      {isLoading ? "Processing Video..." : "Extract Transcript"}
+                      {isExtractingTranscript
+                        ? "Processing..."
+                        : "Extract Transcript"}
                     </span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </div>
@@ -347,32 +376,34 @@ const App = () => {
 
             <RevealScroll delay={0.39}>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                {/* Download Transcript */}
                 <button
-                  onClick={() => handleDownloadTranscript()}
-                  disabled={!click || !url}
+                  onClick={handleDownloadTranscript}
+                  disabled={!transcript || isDownloadingTranscript}
                   className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all group ${
-                    click
+                    transcript && !isDownloadingTranscript
                       ? theme.button
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}
                 >
                   <Download className="w-4 h-4 inline mr-2" />
-                  {isLoading2 ? "Preparing..." : "Download Transcript"}
+                  {isDownloadingTranscript
+                    ? "Preparing..."
+                    : "Download Transcript"}
                 </button>
 
+                {/* Download Summary */}
                 <button
-                  onClick={() => {
-                    handleDownLoadSummary();
-                  }}
-                  disabled={!click || !url}
+                  onClick={handleDownLoadSummary}
+                  disabled={!transcript || isGeneratingSummary}
                   className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all group ${
-                    click
+                    transcript && !isGeneratingSummary
                       ? theme.button
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
                   }`}
                 >
                   <Download className="w-4 h-4 inline mr-2" />
-                  {isLoading3 ? "Generating..." : "Download Summary"}
+                  {isGeneratingSummary ? "Generating..." : "Download Summary"}
                 </button>
               </div>
             </RevealScroll>
