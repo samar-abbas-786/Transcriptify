@@ -421,7 +421,7 @@ const App = () => {
         <div ref={ref} className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-8">
           {[
             { value: "10M+", label: "Videos Processed" },
-            { value: "99.5%", label: "Accuracy Rate" },
+            { value: "99.9%", label: "Accuracy Rate" },
             { value: "50+", label: "Languages Supported" },
           ].map((stat, i) => (
             <div key={i} className="text-center">
