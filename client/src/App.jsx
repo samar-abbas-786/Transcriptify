@@ -70,7 +70,7 @@ const App = () => {
     {
       icon: <FileText className="w-6 h-6" />,
       title: "Dual Output",
-      desc: "Full transcripts plus AI summaries",
+      desc: "Full transcripts plus AI-powered summaries",
     },
     {
       icon: <Zap className="w-6 h-6" />,
