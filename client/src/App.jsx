@@ -22,8 +22,8 @@ import ShowSummary from "./components/showSummary";
 import ShowTranscript from "./components/showTranscript";
 import RevealScroll from "./components/reveal";
 const App = () => {
-  // const API = "https://transcriptify-backend.onrender.com";
-  const API = "http://localhost:5000";
+  const API = "https://transcriptify-backend.onrender.com";
+  // const API = "http://localhost:5000";
 
   const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
@@ -349,7 +349,7 @@ const App = () => {
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => handleDownloadTranscript()}
-                  disabled={!click}
+                  disabled={!click || !url}
                   className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all group ${
                     click
                       ? theme.button
@@ -364,7 +364,7 @@ const App = () => {
                   onClick={() => {
                     handleDownLoadSummary();
                   }}
-                  disabled={!click}
+                  disabled={!click || !url}
                   className={`flex-1 py-3 px-4 rounded-xl font-medium transition-all group ${
                     click
                       ? theme.button
