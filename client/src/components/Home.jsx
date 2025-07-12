@@ -13,6 +13,7 @@ import {
   AudioLines,
   Video,
 } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
@@ -24,7 +25,7 @@ import ShowTranscript from "./showTranscript";
 import RevealScroll from "./reveal";
 const Home = () => {
   const API = "https://transcriptify-backend.onrender.com";
-//   const API = "http://localhost:5000";
+  //   const API = "http://localhost:5000";
 
   const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
@@ -212,6 +213,7 @@ const Home = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
+            {/* Logo */}
             <div className="flex items-center space-x-2">
               <div className={`p-2 rounded-xl ${theme.button}`}>
                 <AudioLines className="w-6 h-6" />
@@ -220,6 +222,8 @@ const Home = () => {
                 Transcriptify
               </span>
             </div>
+
+            {/* Desktop Nav */}
             <div className="hidden md:flex items-center space-x-8">
               <a
                 href="#"
@@ -234,7 +238,7 @@ const Home = () => {
                 Features
               </a>
               <a
-                href="#"
+                href="#pricing"
                 className={`hover:${theme.accent} transition-colors font-medium`}
               >
                 Pricing
@@ -246,7 +250,9 @@ const Home = () => {
                 Search
               </a>
             </div>
-            <div className="flex items-center space-x-4">
+
+            {/* Right - Theme & Mobile Toggle */}
+            <div className="md:hidden flex items-center space-x-4">
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className={`p-2 rounded-xl transition-all duration-300 hover:scale-110 ${theme.buttonSecondary}`}
@@ -258,12 +264,65 @@ const Home = () => {
                 )}
               </button>
               <button
-                className={`hidden sm:block px-4 py-2 rounded-xl font-medium transition-all ${theme.button}`}
+                onClick={() => setClick(!click)}
+                className={`p-2 rounded-xl transition-all duration-300 hover:scale-110 ${theme.buttonSecondary}`}
+              >
+                {click ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
+
+            {/* Desktop Sign-In Button */}
+            <div className="hidden md:block">
+              <button
+                className={`px-4 py-2 rounded-xl font-medium transition-all ${theme.button}`}
               >
                 Sign In
               </button>
             </div>
           </div>
+
+          {/* Mobile Menu */}
+          {click && (
+            <div className="md:hidden flex flex-col items-center space-y-4 pb-6">
+              <a
+                href="#"
+                className={`hover:${theme.accent} font-medium`}
+                onClick={() => setClick(false)}
+              >
+                Home
+              </a>
+              <a
+                href="#why"
+                className={`hover:${theme.accent} font-medium`}
+                onClick={() => setClick(false)}
+              >
+                Features
+              </a>
+              <a
+                href="#pricing"
+                className={`hover:${theme.accent} font-medium`}
+                onClick={() => setClick(false)}
+              >
+                Pricing
+              </a>
+              <a
+                href="/search"
+                className={`hover:${theme.accent} font-medium`}
+                onClick={() => setClick(false)}
+              >
+                Search
+              </a>
+              <button
+                className={`w-full max-w-xs py-2 rounded-xl font-medium ${theme.button}`}
+              >
+                Sign In
+              </button>
+            </div>
+          )}
         </div>
       </nav>
 
