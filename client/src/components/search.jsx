@@ -8,9 +8,11 @@ import RevealScroll from "./reveal";
 const Search = () => {
   const API = "https://transcriptify-backend.onrender.com";
 
-  //   const API = "http://localhost:5000";
+  // const API = "http://localhost:5000";
   const navigate = useNavigate();
-
+  const [prevQuery, setPrevQuery] = useState(
+    localStorage.getItem("query") || null
+  );
   const [maxResults, setMaxResults] = useState(10);
   const [query, setQuery] = useState("random");
   const [data, setData] = useState([]);
@@ -38,11 +40,14 @@ const Search = () => {
 
   const getSearchResult = async () => {
     try {
+      if (prevQuery === query) return;
       setIsLoading(true);
       const response = await axios.get(`${API}/search`, {
         params: { q: query, maxResults },
       });
       setData(response.data.items || []);
+      localStorage.setItem("query", query);
+      setPrevQuery(query); // 🔑 Update state
     } catch (error) {
       console.error("Search failed", error);
       setData([]);
