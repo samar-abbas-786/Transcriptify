@@ -14,7 +14,7 @@ const Search = () => {
     localStorage.getItem("query") || null
   );
   const [maxResults, setMaxResults] = useState(10);
-  const [query, setQuery] = useState("random");
+  const [query, setQuery] = useState();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false);

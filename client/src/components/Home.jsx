@@ -20,11 +20,13 @@ import { Analytics } from "@vercel/analytics/react";
 import axios from "axios";
 import RevealScroll from "./reveal";
 import { useNavigate } from "react-router-dom";
+import PricingSection from "./Pricing";
+import FeaturesSection from "./Feature";
 
 const Home = () => {
-  const API = "https://transcriptify-backend.onrender.com";
+  // const API = "https://transcriptify-backend.onrender.com";
 
-  // const API = "http://localhost:5000";
+  const API = "http://localhost:5000";
   const navigate = useNavigate();
 
   const [darkMode, setDarkMode] = useState(false);
@@ -293,7 +295,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-
+      <FeaturesSection darkMode={darkMode} />
+      <PricingSection darkMode={darkMode} />
       {/* Stats */}
       <div
         ref={ref}
