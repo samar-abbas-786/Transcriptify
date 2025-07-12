@@ -8,9 +8,9 @@ import { useBg } from "../Context/background";
 import { ToastContainer, toast } from "react-toastify";
 
 const Search = () => {
-  // const API = "https://transcriptify-backend.onrender.com";
+  const API = "https://transcriptify-backend.onrender.com";
 
-  const API = "http://localhost:5000";
+  // const API = "http://localhost:5000";
   const navigate = useNavigate();
   const [prevQuery, setPrevQuery] = useState(
     localStorage.getItem("query") || null
