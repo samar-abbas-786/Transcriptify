@@ -1,5 +1,5 @@
 // components/Navbar.jsx
-import { Moon, Sun, AudioLines, Menu, X } from "lucide-react";
+import { Moon, Sun, AudioLines, Menu, X, Youtube } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useBg } from "../Context/background";
 import { useLocation } from "react-router-dom";
@@ -84,11 +84,14 @@ const Navbar = () => {
 
             <a
               href="/search"
-              className={`hover:${theme.accent} ${
+              className={`flex gap-1 hover:${theme.accent} ${
                 path == "/search" ? "hidden" : ""
               }`}
             >
               Search
+              <span className="text-red-500 animate-bounce duration-75">
+                <Youtube />
+              </span>
             </a>
           </div>
           <div className="flex gap-3">
