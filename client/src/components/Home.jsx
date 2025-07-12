@@ -26,6 +26,7 @@ import Footer from "./Footer";
 import FAQs from "./FAQ";
 import { useBg } from "../Context/background";
 import Navbar from "./Navbar";
+import { ToastContainer, toast } from "react-toastify";
 
 const Home = () => {
   const API = "https://transcriptify-backend.onrender.com";
@@ -70,7 +71,9 @@ const Home = () => {
       };
 
   useEffect(() => {
-    if (!url) return;
+    if (!url) {
+      return;
+    }
     try {
       const videoUri = new URL(url);
       const vidParam = videoUri.searchParams.get("v");
@@ -88,10 +91,16 @@ const Home = () => {
 
   const getData = async (videoId) => {
     try {
+      // if (!videoId) {
+      //   toast.error("Enter a valid url");
+      //   return;
+      // }
       const res = await axios.post(`${API}/getTranscript`, { videoId });
       setTranscript(res.data.transcript);
+      toast.success("Transcript retrieved successfully.");
     } catch (err) {
       console.error("Error fetching transcript", err);
+      toast.error("Failed to retrieve the transcript.");
     }
   };
 
@@ -100,6 +109,7 @@ const Home = () => {
     setIsExtractingTranscript(true);
     await getData(videoId);
     setIsExtractingTranscript(false);
+    toast.success("Transcript extracted successfully");
   };
 
   const handleDownloadTranscript = () => {
@@ -114,9 +124,12 @@ const Home = () => {
     try {
       setIsGeneratingSummary(true);
       const res = await axios.post(`${API}/getSummary`, { transcript });
+      toast.success("summary downloaded successfully");
       navigate("/summary", { state: { summary: res.data.summary } });
     } catch (err) {
       console.error("Summary generation failed", err);
+            toast.error("Failed to retrieve the summary");
+
     } finally {
       setIsGeneratingSummary(false);
     }
@@ -391,6 +404,7 @@ const Home = () => {
       <FAQs darkMode={darkMode} />
       <Footer darkMode={darkMode} />
       <Analytics />
+      <ToastContainer />
     </div>
   );
 };

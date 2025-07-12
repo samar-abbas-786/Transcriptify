@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import RevealScroll from "./reveal";
 import { useBg } from "../Context/background";
+import { ToastContainer, toast } from "react-toastify";
 
 const Search = () => {
-  const API = "https://transcriptify-backend.onrender.com";
+  // const API = "https://transcriptify-backend.onrender.com";
 
-  // const API = "http://localhost:5000";
+  const API = "http://localhost:5000";
   const navigate = useNavigate();
   const [prevQuery, setPrevQuery] = useState(
     localStorage.getItem("query") || null
@@ -41,16 +42,22 @@ const Search = () => {
 
   const getSearchResult = async () => {
     try {
-      if (prevQuery === query) return;
+      if (prevQuery === query) {
+        toast.warn("Please enter a different query.");
+        return;
+      }
       setIsLoading(true);
       const response = await axios.get(`${API}/search`, {
         params: { q: query, maxResults },
       });
       setData(response.data.items || []);
+
       localStorage.setItem("query", query);
-      setPrevQuery(query); // 🔑 Update state
+      setPrevQuery(query);
     } catch (error) {
       console.error("Search failed", error);
+      toast.error("Search failed");
+
       setData([]);
     } finally {
       setIsLoading(false);
@@ -68,6 +75,7 @@ const Search = () => {
       navigate("/transcript", { state: { transcript: res.data.transcript } });
     } catch (error) {
       console.error("Error getting transcript", error);
+      toast.error("Failed to retrieve the transcript");
     } finally {
       setIsExtractingTranscript(false);
     }
@@ -83,6 +91,7 @@ const Search = () => {
       navigate("/summary", { state: { summary: summaryRes.data.summary } });
     } catch (error) {
       console.error("Error generating summary", error);
+      toast.success("Error generating summary");
     } finally {
       setIsGeneratingSummary(false);
     }
@@ -101,7 +110,7 @@ const Search = () => {
                   : "bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent"
               }`}
             >
-              YouTube Video Transcript Search
+              Search Inside YouTube Videos
             </h1>
           </RevealScroll>
           <RevealScroll delay={0.2}>
@@ -201,6 +210,7 @@ const Search = () => {
           </button>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

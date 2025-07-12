@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useBg } from "../Context/background";
 import { useLocation } from "react-router-dom";
 
+
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [path, setPath] = useState();
@@ -84,7 +85,7 @@ const Navbar = () => {
 
             <a
               href="/search"
-              className={`flex gap-1 hover:${theme.accent} ${
+              className={`flex items-center gap-1 hover:${theme.accent} ${
                 path == "/search" ? "hidden" : ""
               }`}
             >
