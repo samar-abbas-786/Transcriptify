@@ -4,6 +4,7 @@ import { Search as SearchIcon, Download } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import RevealScroll from "./reveal";
+import { useBg } from "../Context/background";
 
 const Search = () => {
   const API = "https://transcriptify-backend.onrender.com";
@@ -17,9 +18,9 @@ const Search = () => {
   const [query, setQuery] = useState();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [isExtractingTranscript, setIsExtractingTranscript] = useState(false);
   const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+  const { darkMode, setDarkMode } = useBg();
 
   const theme = darkMode
     ? {
@@ -94,7 +95,11 @@ const Search = () => {
         <div className="text-center mb-8">
           <RevealScroll delay={0.1}>
             <h1
-              className={`text-2xl sm:text-3xl font-semibold ${theme.accent}`}
+              className={`text-2xl sm:text-3xl font-semibold ${
+                darkMode
+                  ? "text-white"
+                  : "bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent"
+              }`}
             >
               YouTube Video Transcript Search
             </h1>

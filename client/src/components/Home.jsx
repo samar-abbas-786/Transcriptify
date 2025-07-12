@@ -24,11 +24,11 @@ import PricingSection from "./Pricing";
 import FeaturesSection from "./Feature";
 import Footer from "./Footer";
 import FAQs from "./FAQ";
+import { useBg } from "../Context/background";
 
 const Home = () => {
   const API = "https://transcriptify-backend.onrender.com";
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
   const [videoId, setVideoId] = useState("");
   const [transcript, setTranscript] = useState("");
@@ -39,6 +39,7 @@ const Home = () => {
 
   const ref = useRef(null);
   const isView = useInView(ref, { once: true });
+  const { darkMode, setDarkMode } = useBg();
 
   const theme = darkMode
     ? {
@@ -124,7 +125,7 @@ const Home = () => {
     <div className={`min-h-screen ${theme.background}`}>
       <nav className={`sticky top-0 z-50 ${theme.nav} border-b`}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-2">
             <div className={`p-2 rounded-xl ${theme.button}`}>
               <AudioLines className="w-6 h-6" />
             </div>
@@ -138,7 +139,7 @@ const Home = () => {
             >
               Transcriptify
             </span>
-          </div>
+          </a>
           <div className="md:flex hidden items-center gap-6">
             <a href="#" className={`hover:${theme.accent}`}>
               Home
@@ -153,23 +154,38 @@ const Home = () => {
               Search
             </a>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              className={`p-2 rounded-xl ${theme.buttonSecondary}`}
-            >
-              {darkMode ? (
-                <Sun className="w-5 h-5" />
-              ) : (
-                <Moon className="w-5 h-5" />
-              )}
-            </button>
+          <div className="flex gap-3">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className={`p-2 rounded-xl ${theme.buttonSecondary}`}
+              >
+                {darkMode ? (
+                  <Sun className="w-5 h-5" />
+                ) : (
+                  <Moon className="w-5 h-5" />
+                )}
+              </button>
 
+              <button
+                onClick={() => setClick(!click)}
+                className={`p-2 md:hidden rounded-xl ${theme.buttonSecondary}`}
+              >
+                {click ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Menu className="w-5 h-5" />
+                )}
+              </button>
+            </div>
             <button
-              onClick={() => setClick(!click)}
-              className={`p-2 md:hidden rounded-xl ${theme.buttonSecondary}`}
+              className={`hidden sm:block px-4 py-2 rounded-xl font-medium transition-all ${
+                darkMode
+                  ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
+                  : "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
+              }`}
             >
-              {click ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              Sign In
             </button>
           </div>
         </div>

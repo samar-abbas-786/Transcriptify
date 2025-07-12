@@ -4,7 +4,7 @@ import { Moon, Sun, AudioLines } from "lucide-react";
 const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <nav
-      className={`backdrop-blur-xl border-b transition-all duration-500 border-gray-500 sticky top-0 z-50 ${
+      className={`backdrop-blur-xl  transition-all duration-500 border-gray-500 sticky top-0 z-50 ${
         darkMode
           ? "bg-gradient-to-br from-slate-900 via-purple-900 to-slate-800  text-gray-50"
           : "bg-white/40 border-white/20 text-gray-800"
@@ -13,23 +13,28 @@ const Navbar = ({ darkMode, setDarkMode }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <a href="/" className="flex items-center space-x-2">
             <div
               className={`p-2 rounded-xl ${
                 darkMode
                   ? "bg-gradient-to-r from-purple-600 to-pink-600 text-white"
                   : "bg-gradient-to-r from-indigo-600 to-purple-600 text-white"
-              }`}
+              } `}
             >
+              {/*  */}
               <AudioLines className="w-6 h-6" />
             </div>
-            <a
-              href="/"
-              className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"
+            <span
+              className={`text-2xl sm:text-2xl font-extrabold tracking-tight bg-clip-text text-transparent 
+    ${
+      darkMode
+        ? "bg-gradient-to-r from-purple-400 via-pink-500 to-purple-500"
+        : "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500"
+    }`}
             >
               Transcriptify
-            </a>
-          </div>
+            </span>
+          </a>
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
@@ -45,7 +50,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                     ? "/"
                     : "/search"
                 }
-                className={`transition-colors font-medium hover:${
+                className={`transition-colors  hover:${
                   darkMode ? "text-purple-400" : "text-indigo-600"
                 }`}
               >
