@@ -1,7 +1,11 @@
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import TranscriptPDFViewer from "./pdf";
 
-const ShowTranscript = ({ transcript }) => {
+const ShowTranscript = () => {
+  const { state } = useLocation();
+  const transcript = state?.transcript || "";
+
   const [pdf, setPdf] = useState(false);
 
   if (pdf) {
@@ -35,28 +39,30 @@ const ShowTranscript = ({ transcript }) => {
         )}
       </div>
 
-      <div className="mt-8 flex justify-end">
-        <button
-          onClick={() => setPdf(true)}
-          className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:-translate-y-0.5"
-        >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+      {transcript && (
+        <div className="mt-8 flex justify-end">
+          <button
+            onClick={() => setPdf(true)}
+            className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:-translate-y-0.5"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-            />
-          </svg>
-          <span className="text-lg">Export as PDF</span>
-        </button>
-      </div>
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+            <span className="text-lg">Export as PDF</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

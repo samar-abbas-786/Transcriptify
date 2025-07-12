@@ -3,6 +3,7 @@ import cors from "cors";
 import Transcript from "youtube-transcript-api";
 import dotenv from "dotenv";
 import { GoogleGenAI } from "@google/genai";
+import axios from "axios";
 dotenv.config();
 
 const ai = new GoogleGenAI({
@@ -96,6 +97,31 @@ ${transcript}
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({ message: "Error in getting summary", error });
+  }
+});
+
+app.get("/search", async (req, res) => {
+  const { q, maxResults } = req.query;
+  const key = process.env.YOUTUBE_API_KEY;
+
+  try {
+    const getResult = await axios.get(
+      `https://www.googleapis.com/youtube/v3/search`,
+      {
+        params: {
+          key: key,
+          part: "snippet",
+          q: q,
+          type: "video",
+          maxResults: maxResults,
+        },
+      }
+    );
+
+    return res.status(200).json(getResult.data); // 👈 Send only the data part
+  } catch (err) {
+    console.error("YouTube API error:", err.response?.data || err.message);
+    return res.status(500).json({ error: "Failed to fetch YouTube data." });
   }
 });
 

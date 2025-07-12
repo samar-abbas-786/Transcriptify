@@ -23,16 +23,14 @@ import ShowSummary from "./showSummary";
 import ShowTranscript from "./showTranscript";
 import RevealScroll from "./reveal";
 const Home = () => {
-  // const API = "https://transcriptify-backend.onrender.com";
-  const API = "http://localhost:5000";
+  const API = "https://transcriptify-backend.onrender.com";
+//   const API = "http://localhost:5000";
 
   const [darkMode, setDarkMode] = useState(false);
   const [url, setUrl] = useState("");
   const [videoId, setVideoId] = useState("");
   const [transcript, setTranscript] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoading2, setIsLoading2] = useState(false);
-  const [isLoading3, setIsLoading3] = useState(false);
+
   const [b1, setb1] = useState(false);
   const [showPdf, setShowPdf] = useState(false);
   const [click, setClick] = useState(false);
@@ -242,10 +240,10 @@ const Home = () => {
                 Pricing
               </a>
               <a
-                href="#"
+                href="/search"
                 className={`hover:${theme.accent} transition-colors font-medium`}
               >
-                Contact
+                Search
               </a>
             </div>
             <div className="flex items-center space-x-4">

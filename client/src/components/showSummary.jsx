@@ -1,7 +1,11 @@
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import SummaryPdf from "./summaryPdf";
 
-const ShowSummary = ({ summary }) => {
+const ShowSummary = () => {
+  const { state } = useLocation();
+  const summary = state?.summary || [];
+
   const [pdf, setPdf] = useState(false);
 
   if (pdf) {
@@ -15,7 +19,11 @@ const ShowSummary = ({ summary }) => {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="space-y-6 mb-8">
-        {summary &&
+        {summary.length === 0 ? (
+          <p className="text-center text-gray-500 text-lg">
+            No summary data available.
+          </p>
+        ) : (
           summary.map((data, i) => (
             <div
               key={i}
@@ -35,29 +43,32 @@ const ShowSummary = ({ summary }) => {
                 ))}
               </ul>
             </div>
-          ))}
+          ))
+        )}
       </div>
 
-      <button
-        onClick={() => setPdf(true)}
-        className="px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium flex items-center justify-center mx-auto"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 mr-2"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+      {summary.length > 0 && (
+        <button
+          onClick={() => setPdf(true)}
+          className="px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200 font-medium flex items-center justify-center mx-auto"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-          />
-        </svg>
-        Download PDF
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            />
+          </svg>
+          Download PDF
+        </button>
+      )}
     </div>
   );
 };
