@@ -27,7 +27,7 @@ const features = [
 
 const FeaturesSection = ({ darkMode }) => {
   const bgClass = darkMode
-    ? "bg-gradient-to-br from-slate-800 via-purple-900 to-slate-900 "
+    ? "bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 shadow-md shadow-purple-300  "
     : "bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50";
 
   const cardBase =
@@ -38,14 +38,16 @@ const FeaturesSection = ({ darkMode }) => {
   const iconBg = darkMode ? "bg-pink-500" : "bg-purple-400";
 
   return (
-    <section id="why" className={`py-20 px-6 ${bgClass}`}>
+    <section id="why" className={`py-20 px-6 ${bgClass} `}>
       <div className="max-w-6xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className={`text-4xl font-extrabold mb-12 ${
-            darkMode ? "text-white" : "text-gray-900"
+            darkMode
+              ? "text-white"
+              : "bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent"
           }`}
         >
           Why Choose Transcriptify?

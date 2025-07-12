@@ -22,6 +22,8 @@ import RevealScroll from "./reveal";
 import { useNavigate } from "react-router-dom";
 import PricingSection from "./Pricing";
 import FeaturesSection from "./Feature";
+import Footer from "./Footer";
+import FAQs from "./FAQ";
 
 const Home = () => {
   const API = "https://transcriptify-backend.onrender.com";
@@ -42,7 +44,7 @@ const Home = () => {
     ? {
         background:
           "bg-gradient-to-br from-slate-900 via-purple-900 to-slate-800",
-        nav: "bg-black/20 backdrop-blur-xl border-white/10 text-white",
+        nav: "bg-black/10 backdrop-blur-xl border-none text-white",
         card: "bg-black/20 backdrop-blur-xl border-white/10 text-white",
         input: "bg-white/10 text-white border-white/20 placeholder-gray-300",
         button: "bg-gradient-to-r from-purple-600 to-pink-600 text-white",
@@ -126,7 +128,14 @@ const Home = () => {
             <div className={`p-2 rounded-xl ${theme.button}`}>
               <AudioLines className="w-6 h-6" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            <span
+              className={`text-2xl sm:text-2xl font-extrabold tracking-tight bg-clip-text text-transparent 
+    ${
+      darkMode
+        ? "bg-gradient-to-r from-purple-400 via-pink-500 to-purple-500"
+        : "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500"
+    }`}
+            >
               Transcriptify
             </span>
           </div>
@@ -182,7 +191,7 @@ const Home = () => {
         )}
       </nav>
 
-      <div className="max-w-4xl mx-auto px-6 py-16 text-center">
+      <div className="max-w-4xl mx-auto px-6 py-16 text-center ">
         <RevealScroll delay={0.2}>
           <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
             <span className="bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
@@ -208,14 +217,14 @@ const Home = () => {
 
         {/* Input */}
         <div className="mt-10 relative shadow-lg rounded-xl">
-          <Search className="absolute left-4 top-3.5 text-gray-400 w-5 h-5" />
+          <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
           <input
             type="text"
             placeholder="https://youtube.com/watch?v=..."
             onChange={(e) => setUrl(e.target.value)}
-            className={`w-full pl-12 pr-4 py-3 rounded-xl border transition-all duration-300 focus:ring-2 focus:ring-purple-500 focus:outline-none ${
+            className={`w-full pl-12 pr-4 py-3 rounded-xl border transition-all duration-300 focus:ring-1 focus:ring-purple-500 focus:outline-none ${
               darkMode
-                ? "bg-gray-300 text-white placeholder-gray-600 border-gray-700"
+                ? "bg-white/10 text-white placeholder-gray-300 border-white/20"
                 : "bg-white text-gray-900 placeholder-gray-500 border-gray-300"
             }`}
           />
@@ -299,13 +308,19 @@ const Home = () => {
               darkMode ? "text-white" : "text-gray-900"
             }`}
           >
-            <span className="bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent">
+            <span
+              className={` ${
+                darkMode
+                  ? "text-white"
+                  : "bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent"
+              } `}
+            >
               Trusted by Thousands
             </span>
           </h2>
           <p
             className={`text-lg ${
-              darkMode ? "text-gray-300" : "text-gray-600"
+              darkMode ? "text-gray-400" : "text-gray-600"
             }`}
           >
             Transforming videos into knowledge, one transcript at a time
@@ -356,16 +371,8 @@ const Home = () => {
           ))}
         </div>
       </div>
-
-      <footer
-        className={`mt-20 py-10 text-center ${
-          darkMode ? "text-white bg-black/30" : "text-gray-800 bg-white/70"
-        }`}
-      >
-        &copy; {new Date().getFullYear()}{" "}
-        <strong className="text-purple-500">Transcriptify</strong> by Samar
-        Abbas
-      </footer>
+      <FAQs darkMode={darkMode} />
+      <Footer darkMode={darkMode} />
       <Analytics />
     </div>
   );

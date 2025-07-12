@@ -61,7 +61,9 @@ const PricingSection = ({ darkMode }) => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className={`text-4xl font-extrabold mb-4 ${
-            darkMode ? "text-white" : "text-gray-900"
+            darkMode
+              ? "text-white"
+              : "bg-gradient-to-r from-indigo-500 to-pink-500 bg-clip-text text-transparent"
           }`}
         >
           Pricing Plans

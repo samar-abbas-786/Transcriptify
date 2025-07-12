@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import Search from "./components/search";
 import ShowTranscript from "./components/showTranscript";
 import ShowSummary from "./components/showSummary";
+import PricingSection from "./components/Pricing";
 const App = () => {
   return (
     <>
@@ -12,6 +13,7 @@ const App = () => {
           <Route path="/search" Component={Search} />
           <Route path="/transcript" Component={ShowTranscript} />
           <Route path="/summary" Component={ShowSummary} />
+          <Route path="/price" Component={PricingSection} />
         </Routes>
       </BrowserRouter>
     </>
