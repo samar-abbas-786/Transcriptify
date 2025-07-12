@@ -3,7 +3,9 @@ const Footer = ({ darkMode }) => {
     <div>
       <footer
         className={`mt-10 py-5 text-center ${
-          darkMode ? "text-white bg-black/30" : "text-gray-800 bg-white/70"
+          darkMode
+            ? "text-white bg-gradient from-slate-900 via-purple-900 to-slate-800"
+            : "text-gray-800 bg-white/70"
         }`}
       >
         &copy; {new Date().getFullYear()}{" "}

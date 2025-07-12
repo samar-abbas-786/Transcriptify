@@ -25,7 +25,7 @@ const Search = () => {
   const theme = darkMode
     ? {
         background:
-          "bg-gradient-to-br from-slate-900 via-purple-900 to-slate-800",
+          "bg-gradient-to-br from-slate-800 via-purple-900 to-slate-800",
         card: "bg-black/20 backdrop-blur-xl border-white/10 text-white",
         input: "bg-white/10 text-white placeholder-gray-300 border-white/20",
         button: "bg-gradient-to-r from-purple-600 to-pink-600 text-white",

@@ -25,6 +25,7 @@ import FeaturesSection from "./Feature";
 import Footer from "./Footer";
 import FAQs from "./FAQ";
 import { useBg } from "../Context/background";
+import Navbar from "./Navbar";
 
 const Home = () => {
   const API = "https://transcriptify-backend.onrender.com";
@@ -123,7 +124,7 @@ const Home = () => {
 
   return (
     <div className={`min-h-screen ${theme.background}`}>
-      <nav className={`sticky top-0 z-50 ${theme.nav} border-b`}>
+      {/* <nav className={`sticky top-0 z-50 ${theme.nav} border-b`}>
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <a href="/" className="flex items-center space-x-2">
             <div className={`p-2 rounded-xl ${theme.button}`}>
@@ -205,8 +206,8 @@ const Home = () => {
             </a>
           </div>
         )}
-      </nav>
-
+      </nav> */}
+      <Navbar />
       <div className="max-w-4xl mx-auto px-6 py-16 text-center ">
         <RevealScroll delay={0.2}>
           <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight">
