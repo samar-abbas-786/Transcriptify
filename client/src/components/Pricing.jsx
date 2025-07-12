@@ -12,7 +12,7 @@ const pricingPlans = [
   },
   {
     title: "Pro",
-    price: "$19/mo",
+    price: "₹899/month",
     description: "Ideal for startups and teams.",
     features: [
       "Up to 10 Devices",

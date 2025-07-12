@@ -1,11 +1,18 @@
 // components/Navbar.jsx
 import { Moon, Sun, AudioLines, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBg } from "../Context/background";
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
+  const [path, setPath] = useState();
   const { darkMode, setDarkMode } = useBg();
+  const location = useLocation();
+  useEffect(() => {
+    console.log(location);
+    setPath(location.pathname);
+  }, [location]);
 
   const theme = darkMode
     ? {
@@ -56,13 +63,31 @@ const Navbar = () => {
             <a href="/" className={`hover:${theme.accent}`}>
               Home
             </a>
-            <a href="#why" className={`hover:${theme.accent}`}>
+
+            <a
+              href="#why"
+              className={`hover:${theme.accent} ${
+                path == "/search" ? "hidden" : ""
+              }`}
+            >
               Features
             </a>
-            <a href="#pricing" className={`hover:${theme.accent}`}>
+
+            <a
+              href="#pricing"
+              className={`hover:${theme.accent} ${
+                path == "/search" ? "hidden" : ""
+              }`}
+            >
               Pricing
             </a>
-            <a href="/search" className={`hover:${theme.accent}`}>
+
+            <a
+              href="/search"
+              className={`hover:${theme.accent} ${
+                path == "/search" ? "hidden" : ""
+              }`}
+            >
               Search
             </a>
           </div>
