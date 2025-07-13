@@ -64,9 +64,9 @@ const Search = () => {
     }
   };
 
-  useEffect(() => {
-    getSearchResult();
-  }, [maxResults]);
+  // useEffect(() => {
+  //   getSearchResult();
+  // }, [maxResults]);
 
   const handleTranscriptDownload = async (videoId) => {
     try {
