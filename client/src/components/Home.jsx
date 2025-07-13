@@ -30,6 +30,8 @@ import { ToastContainer, toast } from "react-toastify";
 
 const Home = () => {
   const API = "https://transcriptify-backend.onrender.com";
+  // const API = "http://localhost:5000";
+
   const navigate = useNavigate();
   const [url, setUrl] = useState("");
   const [videoId, setVideoId] = useState("");
@@ -98,6 +100,7 @@ const Home = () => {
       const res = await axios.post(`${API}/getTranscript`, { videoId });
       setTranscript(res.data.transcript);
       toast.success("Transcript retrieved successfully.");
+      console.log(transcript);
     } catch (err) {
       console.error("Error fetching transcript", err);
       toast.error("Failed to retrieve the transcript.");
@@ -128,8 +131,7 @@ const Home = () => {
       navigate("/summary", { state: { summary: res.data.summary } });
     } catch (err) {
       console.error("Summary generation failed", err);
-            toast.error("Failed to retrieve the summary");
-
+      toast.error("Failed to retrieve the summary");
     } finally {
       setIsGeneratingSummary(false);
     }

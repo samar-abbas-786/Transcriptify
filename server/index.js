@@ -28,9 +28,12 @@ app.post("/getTranscript", async (req, res) => {
   console.log("Extracted videoId:", videoId);
 
   let transcript = "";
+  // console.log("tra", Transcript);
 
   try {
-    const data = await Transcript.getTranscript(videoId); // ✅ fix typo here
+    const data = await Transcript.getTranscript(videoId);
+    // console.log("data", data);
+
     data.forEach((d) => {
       transcript += d.text + " ";
     });
@@ -41,7 +44,7 @@ app.post("/getTranscript", async (req, res) => {
       return res.status(404).json({ error: "Transcript not found" });
     }
   } catch (error) {
-    console.error("Error fetching transcript:", error.message);
+    console.error("Error fetching transcript:", error);
     return res.status(500).json({ error: "Failed to fetch transcript" });
   }
 });
