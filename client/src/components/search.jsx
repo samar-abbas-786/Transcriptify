@@ -56,7 +56,7 @@ const Search = () => {
       setPrevQuery(query);
     } catch (error) {
       console.error("Search failed", error);
-      toast.error("Search failed");
+      // toast.error("Search failed");
 
       setData([]);
     } finally {
