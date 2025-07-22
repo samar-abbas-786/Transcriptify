@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useBg } from "../Context/background";
 import { useLocation } from "react-router-dom";
 
-
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [path, setPath] = useState();
@@ -61,7 +60,12 @@ const Navbar = () => {
             </span>
           </a>
           <div className="md:flex hidden items-center gap-6">
-            <a href="/" className={`hover:${theme.accent}`}>
+            <a
+              href="/"
+              className={`hover:${theme.accent} ${
+                path == "/search" ? "hidden" : ""
+              }`}
+            >
               Home
             </a>
 

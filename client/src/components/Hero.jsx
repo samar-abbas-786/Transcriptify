@@ -1,20 +1,36 @@
-import RevealScroll from "./reveal";
-import Search from "lucide-react";
-const HeroSection = ({ darkMode }) => {
+import RevealScroll from "./Reveal";
+import { Search } from "lucide-react";
+
+const HeroSection = ({
+  darkMode,
+  videoId,
+  setUrl,
+  handleSubmit,
+  handleDownloadTranscript,
+  handleDownloadSummary,
+  isExtractingTranscript,
+  isDownloadingTranscript,
+  isGeneratingSummary,
+  transcript,
+  theme,
+}) => {
   return (
-    <div>
-      <div className="max-w-4xl mx-auto px-4 py-12 text-center">
+    <section className="bg-transparent py-16 px-4">
+      <div className="max-w-4xl mx-auto text-center">
+        {/* Heading */}
         <RevealScroll delay={0.2}>
-          <h1 className="text-4xl font-bold leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight">
             <span className="bg-gradient-to-r from-indigo-600 to-pink-600 bg-clip-text text-transparent">
               Turn YouTube Videos Into
             </span>
             <br />
-            <span className={darkMode ? "text-white" : "text-gray-800"}>
+            <span className={darkMode ? "text-white" : "text-gray-900"}>
               Transcripts & Summaries
             </span>
           </h1>
         </RevealScroll>
+
+        {/* Subtitle */}
         <RevealScroll delay={0.3}>
           <p
             className={`mt-4 text-lg ${
@@ -25,19 +41,21 @@ const HeroSection = ({ darkMode }) => {
           </p>
         </RevealScroll>
 
-        <div className="mt-8">
-          <div className="relative">
-            <Search className="absolute left-4 top-3 w-5 h-5 text-gray-400" />
+        {/* Input Box */}
+        <div className="mt-10">
+          <div className="relative w-full max-w-xl mx-auto">
+            <Search className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
             <input
               type="text"
               placeholder="https://youtube.com/watch?v=..."
               onChange={(e) => setUrl(e.target.value)}
-              className={`w-full pl-12 pr-4 py-3 rounded-xl border ${theme.input}`}
+              className={`w-full pl-12 pr-4 py-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm text-sm sm:text-base transition-all duration-200 ${theme.input}`}
             />
           </div>
 
+          {/* Video Preview */}
           {videoId && (
-            <div className={`mt-6 p-4 rounded-xl ${theme.card}`}>
+            <div className={`mt-6 p-4 rounded-xl shadow-md ${theme.card}`}>
               <iframe
                 className="w-full h-[40vh] rounded-lg"
                 src={`https://www.youtube.com/embed/${videoId}`}
@@ -48,13 +66,14 @@ const HeroSection = ({ darkMode }) => {
             </div>
           )}
 
-          <div className="mt-6 flex flex-col sm:flex-row gap-4">
+          {/* Action Buttons */}
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={handleSubmit}
               disabled={!videoId || isExtractingTranscript}
-              className={`flex-1 py-3 rounded-xl font-medium ${
+              className={`flex-1 min-w-[180px] py-3 rounded-xl font-semibold transition duration-200 ${
                 videoId && !isExtractingTranscript
-                  ? theme.button
+                  ? theme.button + " hover:brightness-110"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >
@@ -64,9 +83,9 @@ const HeroSection = ({ darkMode }) => {
             <button
               onClick={handleDownloadTranscript}
               disabled={!transcript || isDownloadingTranscript}
-              className={`flex-1 py-3 rounded-xl font-medium ${
+              className={`flex-1 min-w-[180px] py-3 rounded-xl font-semibold transition duration-200 ${
                 transcript && !isDownloadingTranscript
-                  ? theme.button
+                  ? theme.button + " hover:brightness-110"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >
@@ -76,9 +95,9 @@ const HeroSection = ({ darkMode }) => {
             <button
               onClick={handleDownloadSummary}
               disabled={!transcript || isGeneratingSummary}
-              className={`flex-1 py-3 rounded-xl font-medium ${
+              className={`flex-1 min-w-[180px] py-3 rounded-xl font-semibold transition duration-200 ${
                 transcript && !isGeneratingSummary
-                  ? theme.button
+                  ? theme.button + " hover:brightness-110"
                   : "bg-gray-300 text-gray-500 cursor-not-allowed"
               }`}
             >
@@ -87,7 +106,7 @@ const HeroSection = ({ darkMode }) => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -19,8 +19,8 @@ const Search = () => {
   const [query, setQuery] = useState();
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isExtractingTranscript, setIsExtractingTranscript] = useState(false);
-  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+  const [isExtractingTranscript, setIsExtractingTranscript] = useState(null);
+  const [isGeneratingSummary, setIsGeneratingSummary] = useState(null);
   const { darkMode, setDarkMode } = useBg();
 
   const theme = darkMode
@@ -56,7 +56,7 @@ const Search = () => {
       setPrevQuery(query);
     } catch (error) {
       console.error("Search failed", error);
-      // toast.error("Search failed");
+      toast.warning("Token expired");
 
       setData([]);
     } finally {
@@ -64,13 +64,9 @@ const Search = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getSearchResult();
-  // }, [maxResults]);
-
   const handleTranscriptDownload = async (videoId) => {
     try {
-      setIsExtractingTranscript(true);
+      setIsExtractingTranscript(videoId);
       const res = await axios.post(`${API}/getTranscript`, { videoId });
       navigate("/transcript", { state: { transcript: res.data.transcript } });
     } catch (error) {
@@ -83,7 +79,7 @@ const Search = () => {
 
   const handleSummaryDownload = async (videoId) => {
     try {
-      setIsGeneratingSummary(true);
+      setIsGeneratingSummary(videoId);
       const res = await axios.post(`${API}/getTranscript`, { videoId });
       const summaryRes = await axios.post(`${API}/getSummary`, {
         transcript: res.data.transcript,
@@ -184,7 +180,9 @@ const Search = () => {
                     disabled={isExtractingTranscript}
                   >
                     <Download className="w-4 h-4 inline mr-2" />
-                    {isExtractingTranscript ? "Extracting..." : "Transcript"}
+                    {isExtractingTranscript == item.id.videoId
+                      ? "Extracting..."
+                      : "Transcript"}
                   </button>
                   <button
                     onClick={() => handleSummaryDownload(item.id.videoId)}
@@ -192,7 +190,9 @@ const Search = () => {
                     disabled={isGeneratingSummary}
                   >
                     <Download className="w-4 h-4 inline mr-2" />
-                    {isGeneratingSummary ? "Summarizing..." : "Summary"}
+                    {isGeneratingSummary == item.id.videoId
+                      ? "Summarizing..."
+                      : "Summary"}
                   </button>
                 </div>
               </div>
