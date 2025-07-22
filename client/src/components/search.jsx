@@ -96,9 +96,9 @@ const Search = () => {
   return (
     <div className="font-sans">
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-      <div className={`min-h-screen ${theme.background} px-4 sm:px-8 py-10`}>
-        <div className="text-center mb-8">
-          <RevealScroll delay={0.1}>
+      <RevealScroll delay={0.3}>
+        <div className={`min-h-screen ${theme.background} px-4 sm:px-8 py-10`}>
+          <div className="text-center mb-8">
             <h1
               className={`text-2xl sm:text-3xl font-semibold ${
                 darkMode
@@ -108,8 +108,7 @@ const Search = () => {
             >
               Search Inside YouTube Videos
             </h1>
-          </RevealScroll>
-          <RevealScroll delay={0.2}>
+
             <p
               className={`mt-2 text-sm sm:text-base ${
                 darkMode ? "text-gray-300" : "text-gray-600"
@@ -117,10 +116,8 @@ const Search = () => {
             >
               Search YouTube videos and download transcripts or summaries
             </p>
-          </RevealScroll>
-        </div>
+          </div>
 
-        <RevealScroll delay={0.3}>
           <div
             className={`max-w-2xl mx-auto p-4 rounded-xl shadow-md ${theme.card}`}
           >
@@ -146,20 +143,16 @@ const Search = () => {
               </button>
             </div>
           </div>
-        </RevealScroll>
 
-        <RevealScroll delay={0.35}>
           <div className="text-center mt-8 mb-4">
             <h2 className={`text-sm sm:text-base font-medium ${theme.accent}`}>
               {isLoading ? "Loading..." : `Results: ${data.length}`}
             </h2>
           </div>
-        </RevealScroll>
 
-        {/* Video Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2 sm:px-0">
-          {data.map((item, index) => (
-            <RevealScroll delay={index / 12} key={index}>
+          {/* Video Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-2 sm:px-0">
+            {data.map((item, index) => (
               <div
                 className={`rounded-2xl p-4 shadow-lg transition hover:shadow-xl ${theme.card}`}
               >
@@ -196,21 +189,21 @@ const Search = () => {
                   </button>
                 </div>
               </div>
-            </RevealScroll>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        <div className="flex justify-center mt-10">
-          <button
-            onClick={() => setMaxResults((prev) => prev + 10)}
-            disabled={isLoading}
-            className="px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-red-500 to-red-700 text-white hover:from-red-600 hover:to-red-800 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? "Loading..." : "More"}
-          </button>
+          <div className="flex justify-center mt-10">
+            <button
+              onClick={() => setMaxResults((prev) => prev + 10)}
+              disabled={isLoading}
+              className="px-6 py-3 rounded-xl font-semibold bg-gradient-to-r from-red-500 to-red-700 text-white hover:from-red-600 hover:to-red-800 transition-all duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? "Loading..." : "More"}
+            </button>
+          </div>
         </div>
-      </div>
-      <ToastContainer />
+        <ToastContainer />
+      </RevealScroll>
     </div>
   );
 };
